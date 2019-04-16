@@ -1,27 +1,36 @@
 package grinnell.sortingvisualizer.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SwapEvent<T> implements SortEvent<T> {
+public class SwapEvent<T extends Comparable <T>> implements SortEvent<T> {
 
-  
-  
+  private int i;
+  private int j;
+
+  public SwapEvent(int index1, int index2) {
+    this.i = index1;
+    this.j = index2;
+  } // SwapEvent(int, int)
+
   @Override
   public void apply(T[] arr) {
-    // TODO Auto-generated method stub
-    
-  }
+    T temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  } // apply(arr)
 
   @Override
   public List<Integer> getAffectedIndices() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    List<Integer> l = new ArrayList<Integer>();
+    l.add(i);
+    l.add(j);
+    return l;
+  } // getAffectedIndices()
 
   @Override
   public boolean isEmphasized() {
-    // TODO Auto-generated method stub
-    return false;
-  }
+    return true;
+  } // isEmphasized()
 
-}
+} // SwapEvent<T>
