@@ -80,15 +80,16 @@ public class Sorts {
    * 
    * @param <T>
    */
+
   public static <T extends Comparable<T>> void merge(T[] vals, int lo, int mid,
       int hi, List<SortEvent<T>> l) {
 
-    T[] scratch = (T[]) new Object[hi - lo + 1];
+    T[] scratch = vals.clone();
     int k = 0;
     int i = lo;
     int j = mid;
 
-    while (i < mid && j <= hi) {
+    while (i < mid && j < hi) {
       l.add(new CompareEvent<T>(i, j));
       if (vals[i].compareTo(vals[j]) <= 0) {
        // l.add(new CopyEvent<T>(k, vals[i]));
@@ -113,7 +114,7 @@ public class Sorts {
 
     // copying scratch back into values
     int count = 0;
-    for (int n = lo; n <= hi; n++) {
+    for (int n = lo; n < hi; n++) {
       T val = scratch[count];
       vals[n] = val;
       count++;
@@ -130,6 +131,8 @@ public class Sorts {
     mergeH(values, lo, mid, l);
     // call helper on mid to hi
     mergeH(values, mid, hi, l);
+    //merge
+    merge(values, lo, mid, hi, l);
   } // mergeH
 
   public static <T extends Comparable<T>> int partition(T[] arr, int low, int high,

@@ -13,7 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import grinnell.sortingvisualizer.events.CompareEvent;
+import grinnell.sortingvisualizer.events.CopyEvent;
 import grinnell.sortingvisualizer.events.SortEvent;
+import grinnell.sortingvisualizer.events.SwapEvent;
 import grinnell.sortingvisualizer.sorts.Sorts;
 
 /**
@@ -141,27 +143,43 @@ public class ControlPanel extends JPanel {
                 
                 // TODO: fill me in
                 // 1. Create the sorting events list
-                notes.initializeAndShuffle(scale.size());
+                //notes.initializeAndShuffle(scale.size());
+               
+                Integer[] temp = notes.arr.clone();
                 
                 // 2. Add in the compare events to the end of the list
                 final List<SortEvent<Integer>> events = generateEvents((String)sorts.getSelectedItem(), notes.arr);
                 
+               
+             
                 // NOTE: The Timer class repetitively invokes a method at a
                 //       fixed interval.  Here we are specifying that method
                 //       by creating an _anonymous subclass_ of the TimeTask
                 //       class.  We'll discuss this later in the course.
                 //       For now, you can interpret the run() method as the
                 //       method that fires on every "tick" of the program.
+                
+               notes.arr = temp.clone();                
+                
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
                     private int index = 0;
                     
                     @Override
                     public void run() {
+                      notes.clearAllHighlighted();
                         if (index < events.size()) {
                             SortEvent<Integer> e = events.get(index++);
-                            
+                            e.apply(notes.arr);
                             // 1. Apply the next sort event.
+                            List<Integer> l = e.getAffectedIndices();
+                            for (Integer k: l) {
+                              if (e instanceof CopyEvent || e instanceof SwapEvent) {
+                                notes.highlightNote(k);
+                              }
+                              scale.playNote(k, notes.highlight[k]);
+                              //notes.highlightNote(k);
+                            }
                             // 3. Play the corresponding notes denoted by the
                             //    affected indices logged in the event.
                             // 4. Highlight those affected indices.

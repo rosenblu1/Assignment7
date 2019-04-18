@@ -34,8 +34,9 @@ public class ArrayPanel extends JPanel {
          if (notes.isHighlighted(i)) {
            g.setColor(Color.BLUE);
          }
-         g.fillRect(x, 0, barWidth, h);
+         g.fillRect(x, h, barWidth, this.getHeight());
          g.setColor(Color.BLACK);
+        // notes.clearAllHighlighted();
        } // for
        
     } // paintComponent(Graphics)
