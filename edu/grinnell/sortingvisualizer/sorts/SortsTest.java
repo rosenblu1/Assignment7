@@ -5,20 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import grinnell.sortingvisualizer.events.SortEvent;
-import grinnell.sortingvisualizer.sorts.*;
 
 
 class SortsTest {
+  
+  /**
+   * A class to generate arrays of Integers and test the methods of the Sorts
+   * class on those Integers, including all basic sort methods and the 
+   * eventSort method
+   * 
+   * Citations: This sorting test suite is based on the QuicksortDNF test suite
+   * provided by SamR for the makeup exam
+   * 
+   * @author Samuel A. Rebelsky
+   * @author Will Henderson
+   */
 
   // +-----------+---------------------------------------------------
   // | Utilities |
   // +-----------+
 
   /**
-   * Test Quicksort, given an expected result and an input array.
+   * Test all sorts in the Sorts class, given an expected result and an input array.
    * 
-   * @param <T>
-   * @param <T>
+   * @param Integer[]
+   * @param Integer[]
    */
   <T> void checkSort(Integer expected[], Integer[] values) {
     // selectionSort
@@ -69,9 +80,9 @@ class SortsTest {
   } // checkQuicksort
 
   /**
-   * fail("Not yet implemented"); Permute an already sorted array,
+   * Permute an already sorted array and run checkSort on it 
    * 
-   * @param <T>
+   * @param Integer[]
    */
   void checkSortRnd(Integer[] sorted) {
     Integer[] copy = sorted.clone();
@@ -125,4 +136,4 @@ class SortsTest {
       } // for size
     } // for trials
   } // testRandom()
-} // SamQuicksortTests
+} // SortsTests
