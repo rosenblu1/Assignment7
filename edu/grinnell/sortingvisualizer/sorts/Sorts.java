@@ -63,8 +63,9 @@ public class Sorts {
   } // shellSort
 
   public static <T extends Comparable<T>> void eventSort(T[] arr, List<SortEvent<T>> events) {
-    int i = 0;
-    events.get(i++).apply(arr);
+    for (int i = 0; i < events.size(); i++) {
+    events.get(i).apply(arr);
+    }
   } // eventSort(T[], List<SortEvent<T>>)
 
   /*********************************************
@@ -116,6 +117,7 @@ public class Sorts {
       T val = scratch[count];
       vals[n] = val;
       count++;
+      l.add(new CopyEvent<T>(n, val));
     } // for
   } // merge
 
