@@ -105,6 +105,18 @@ public class TestUtils {
   } // randomInts(int)
   
   /**
+   * Create an unpredictable array of Integers in non-decreasing order.
+   */
+  public static Integer[] randomIntegers(int size) {
+    Integer[] result = new Integer[size];
+    result[0] = 50 - rand.nextInt(100);
+    for (int i = 1; i < size; i++) {
+      result[i] = result[i-1] + rand.nextInt(3);
+    } // for
+    return result;
+  } // randomInts(int)
+  
+  /**
    * Randomly permute an array.
    */
   public static <T> void randomlyPermute(T[] values) {
